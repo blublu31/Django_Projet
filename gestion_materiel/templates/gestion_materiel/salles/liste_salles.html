@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Liste des salles</title>
+</head>
+<body>
+    {% include 'gestion_materiel/includes/entete.html' %}
+
+    <div class="container">
+        <h1>Liste des salles</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Etage</th>
+                    <th>Matériel présent dans la salle</th>
+                    <th>Supprimer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for salle in salles %}
+                    <tr>
+                        <td>{{ salle.nom }}</td>
+                        <td>{{ salle.etage }}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary">
+                                <a href="{% url 'liste_materiels_salle' salle.id %}" style="color: white; text-decoration: none;">Voir les matériels</a>
+                            </button></td>
+                        <td>
+                            <form method="post" action="{% url 'supprimer_salle' salle.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="3">Aucune salle trouvée.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

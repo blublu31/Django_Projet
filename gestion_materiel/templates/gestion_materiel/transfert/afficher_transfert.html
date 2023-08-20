@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Transfert - {{ transfert.material.nom }}</title>
+</head>
+<body>
+    {% include 'gestion_materiel/includes/entete.html' %}
+
+    <div class="container">
+        <h1>Détails du transfert - {{ transfert.material.nom }}</h1>
+        <a href="{% url 'liste_historique_transferts' materiel_id=transfert.material.id %}" class="btn btn-primary">Liste des historiques des transferts</a>
+        <div style="margin-top: 10px;"></div>
+
+        <p><strong>Nom du matériel :</strong> {{ transfert.material.nom }}</p>
+        <p><strong>Date du transfert :</strong> {{ transfert.date_transfert }}</p>
+        <p><strong>Objectif :</strong> {{ transfert.objectif }}</p>
+        <p><strong>Occasion :</strong> {{ transfert.occasion }}</p>
+        <p><strong>Possesseur précédent :</strong> {{ transfert.ancien_possesseur }}</p>
+        <p><strong>Nouveau possesseur :</strong> {{ transfert.nouveau_possesseur }}</p>
+        <p><strong>Lieu précédent :</strong> {{ transfert.ancien_lieu }}</p>
+        <p><strong>Nouveau lieu :</strong> {{ transfert.nouveau_lieu }}</p>
+
+        <h2>Accessoires</h2>
+       <table class="table table-striped">
+            <tr>
+                <th>Nom</th>
+                <th>Ancienne présence</th>
+                <th>Nouvelle présence</th>
+                <th>Ancien état</th>
+                <th>Nouvel état</th>
+            </tr>
+            {% for accessoire in transfert.transfertaccessoire_set.all %}
+                <tr>
+                    <td>{{ accessoire.accessoire.nom }}</td>
+                    <td>{% if accessoire.ancienne_presence %}Oui{% else %}Non{% endif %}</td>
+                    <td>{% if accessoire.nouvelle_presence %}Oui{% else %}Non{% endif %}</td>
+                    <td>{{ accessoire.ancien_etat }}</td>
+                    <td>{{ accessoire.nouveau_etat }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="5">Il n'y a pas d'accessoire associé.</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

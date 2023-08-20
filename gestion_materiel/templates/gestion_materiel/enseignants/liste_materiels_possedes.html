@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Matériels de {{ enseignant.nom }} {{ enseignant.prenom }}</title>
+</head>
+<body>
+    {% include 'gestion_materiel/includes/entete.html' %}
+
+    <div class="container">
+        <h1>Liste des matériels possédés par {{ enseignant.nom }} {{ enseignant.prenom }}</h1>
+        <a href="{% url 'liste_enseignants'%}" class="btn btn-primary">Liste des enseignants</a>
+        <div style="margin-top: 10px;"></div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nom du matériel</th>
+                    <th>Lieu</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for materiel in materiels %}
+                    <tr>
+                        <td>{{ materiel.nom }}</td>
+                        <td>{{ materiel.lieu }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="2">Aucun matériel trouvé.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

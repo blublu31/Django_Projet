@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Liste d'accessoires pour {{ materiel.nom }}</title>
+</head>
+<body>
+    {% include 'gestion_materiel/includes/entete.html' %}
+
+    <div class="container">
+        <h1>Liste des accessoires pour le matériel {{ materiel.nom }}</h1>
+        <a href="{% url 'ajouter_accessoire' materiel_id=materiel.id %}" class="btn btn-primary">Ajouter un accessoire</a>
+        <a href="{% url 'liste_materiels'%}" class="btn btn-primary">Liste des matériels</a>
+        <div style="margin-top: 10px;"></div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Présent</th>
+                    <th>État</th>
+                    <th>Modifier</th>
+                    <th>Supprimer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for accessoire in accessoires %}
+                    <tr>
+                        <td>{{ accessoire.nom }}</td>
+                        <td>
+                            {% if accessoire.present %}
+                                <span style="margin-left: 5px"> Oui </span><span class="text-success">&#10004;</span>
+                            {% else %}
+                                <span style="margin-left: 5px"> Non </span><span class="text-danger">&#10008;</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ accessoire.etat }}</td>
+                        <td>
+                            <a href="{% url 'modifier_accessoire' materiel_id=materiel.id accessoire_id=accessoire.id %}" class="btn btn-warning">Modifier</a>
+                        </td>
+                        <td>
+                            <form method="post" action="{% url 'supprimer_accessoire' materiel_id=materiel.id accessoire_id=accessoire.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="5">Aucun accessoire trouvé.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

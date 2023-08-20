@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ajout d'un matériel</title>
+</head>
+<body>
+    {% include 'gestion_materiel/includes/entete.html' %}
+
+    <div class="container">
+        <h1>Ajouter un matériel</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ materiel_form.as_p }}
+            <div>
+                {{ accessoire_formset.management_form }}
+                {% for form in accessoire_formset %}
+                    <h2>Accessoire (facultatif)</h2>
+                    <div class="form-group">
+                        <label for="{{ form.nom.id_for_label }}">Nom de l'accessoire :</label>
+                        {{ form.nom }}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.present.id_for_label }}">Présent:</label>
+                        {{ form.present }}
+                    </div>
+                    <div class="form-group">
+                        <label> État (ne pas prendre en compte si absent):</label>
+                        {{ form.etat }}
+                    </div>
+                {% endfor %}
+            </div>
+            <button type="submit" class="btn btn-primary">Ajouter</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Historique des Transferts</title>
+</head>
+<body>
+    {% include 'gestion_materiel/includes/entete.html' %}
+
+    <div class="container">
+        <h1>Historique des Transferts pour {{ materiel.nom }}</h1>
+        <a href="{% url 'choix_materiel'%}" class="btn btn-primary">Choix du matériel</a>
+        <div style="margin-top: 10px;"></div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Ancien Possesseur</th>
+                    <th>Nouveau Possesseur</th>
+                    <th>Détails du transfert</th>
+                    <th>Supprimer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transfert in transferts %}
+                    <tr>
+                        <td>{{ transfert.date_transfert }}</td>
+                        <td>{{ transfert.ancien_possesseur }}</td>
+                        <td>{{ transfert.nouveau_possesseur }}</td>
+                        <td><a href="{% url 'afficher_transfert' materiel_id=materiel.id transfert_id=transfert.id %}" class="btn btn-primary">Détails</a></td>
+                        <td><a href="{% url 'supprimer_transfert' materiel_id=materiel.id transfert_id=transfert.id %}" class="btn btn-danger">Supprimer</a></td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5">Aucun transfert trouvé.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <style>
+        .navbar-brand {
+            color: #fff;
+            font-size: 24px;
+            margin: 10px;
+        }
+        .navbar-nav .nav-link {
+            color: #fff;
+            font-size: 18px;
+            margin: 5px 10px;
+            border-radius: 5px;
+            padding: 8px 12px;
+        }
+        .navbar-nav .nav-link:hover,
+        .dropdown-menu .dropdown-item:hover {
+            background-color: #29b6f6;
+            color: #fff;
+        }
+
+        .messages {
+            list-style: none;
+            padding: 0;
+        }
+        .messages h2 {
+            font-size: 18px;
+            margin-left: 20px;
+            margin-top: 10px;
+            margin-bottom: 5px;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .messages h2.success {
+            background-color: #c3e6cb;
+            color: #155724;
+        }
+        .messages h2.error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .horizontal-navbar {
+            background-color: #29b6f6;
+            height: 100vh;
+            width: 200px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            padding-top: 20px;
+        }
+        .horizontal-navbar .nav-item {
+            margin-bottom: 10px;
+        }
+
+        .horizontal-navbar .dropdown:hover .dropdown-menu {
+            display: block;
+            background-color: #29b6f6;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+  <a class="navbar-brand" href="#">Navigation</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/accueil">Accueil <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Enseignants
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" >
+          <a class="dropdown-item" href="/enseignant/liste_enseignants">Liste des enseignants</a>
+          <a class="dropdown-item" href="/enseignant/ajout_enseignant">Ajouter un enseignant</a>
+        </div>
+      </li>
+<li class="nav-item active dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Salles
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" >
+          <a class="dropdown-item" href="/salle/liste_salles">Liste des salles</a>
+          <a class="dropdown-item" href="/salle/ajout_salle">Ajouter une salle</a>
+        </div>
+      </li>
+        <li class="nav-item active dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Matériels
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" >
+          <a class="dropdown-item" href="/materiel/liste_materiels">Liste des materiels</a>
+          <a class="dropdown-item" href="/materiel/ajout_materiel">Ajouter du materiel</a>
+        </div>
+      </li>
+        <li class="nav-item active">
+        <a class="nav-link" href="/transfert/choix_materiel">Trasnfert</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+    <div style="margin-left: 220px; padding: 20px;">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <h2 style="color: {% if 'danger' in message.tags %}red{% else %}green{% endif %};">{{ message }}</h2>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+
+</body>
+</html>

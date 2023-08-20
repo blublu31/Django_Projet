@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ajouter une salle</title>
+</head>
+<body>
+    {% include 'gestion_materiel/includes/entete.html' %}
+
+    <div class="container">
+        <h1>Ajouter une salle</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_nom">Nom :</label>
+                <input type="text" class="form-control" id="id_nom" name="nom" required>
+            </div>
+            <div class="form-group">
+                <label for="id_etage">Étage :</label>
+                <select class="form-control" id="id_etage" name="etage" required>
+                    <option value="" selected disabled>Choisir l'étage</option>
+                    <option value="rez-de-chaussee">Rez-de-chaussée</option>
+                    <option value="1er">1er étage</option>
+                    <option value="2e">2eme étage</option>
+                    <option value="3e">3eme étage</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Ajouter</button>
+        </form>
+    </div>
+</body>
+</html>

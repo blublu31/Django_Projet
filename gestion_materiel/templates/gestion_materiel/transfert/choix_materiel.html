@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Transfer</title>
+</head>
+<body>
+    {% include 'gestion_materiel/includes/entete.html' %}
+
+    <div class="container">
+        <h1>Choisir un matériel à transférer</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_materiel">Sélectionner un matériel :</label>
+                <select class="form-control" id="id_materiel" name="materiel" required>
+                    <option value="" selected disabled>Choisir un matériel</option>
+                    {% for materiel in materiels %}
+                        <option value="{{ materiel.id }}" {% if materiel.id == selected_materiel_id %}selected{% endif %}>{{ materiel.nom }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" name="action" value="historique" class="btn btn-primary">Historique des transferts</button>
+            <button type="submit" name="action" value="creation" class="btn btn-primary">Créer un transfert</button>
+        </form>
+    </div>
+</body>
+</html>

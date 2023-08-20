@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Liste des enseignants</title>
+</head>
+<body>
+    {% include 'gestion_materiel/includes/entete.html' %}
+
+    <div class="container">
+        <h1>Liste des enseignants</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Supprimer</th>
+                    <th>Actions</th>  <!-- Nouvelle colonne pour les boutons d'actions -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for enseignant in enseignants %}
+                    <tr>
+                        <td>{{ enseignant.nom }}</td>
+                        <td>{{ enseignant.prenom }}</td>
+                        <td>
+                            <form method="post" action="{% url 'supprimer_enseignant' enseignant.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">Supprimer</button>
+                            </form>
+                        </td>
+                        <td>
+                            <a href="{% url 'liste_materiels_possedes' enseignant.id %}" class="btn btn-primary">Matériels Possédés</a>
+                            <a href="{% url 'liste_materiels_proprietaire' enseignant.id %}" class="btn btn-success">Matériels Propriétaires</a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="4">Aucun enseignant trouvé.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
